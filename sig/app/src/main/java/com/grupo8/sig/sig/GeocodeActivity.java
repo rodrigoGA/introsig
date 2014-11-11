@@ -31,8 +31,10 @@ import com.esri.core.symbol.TextSymbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -110,7 +112,7 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
 
         setCreandoRuta(false);
 
-
+        new TaskCargarPuntosGuardados(this).execute();
 
         selector_aceleracion.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChanged = 1;
@@ -190,6 +192,15 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
     }
 
 
+
+
+    @OnClick(R.id.deleteall)
+    public void eliminarRuta(){
+        new TaskEliminarPuntosCargados(this).execute();
+    }
+
+
+
     /*
      * Convert input address into geocoded point
      */
@@ -214,10 +225,6 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
     }
 
 
-    public void clearPoints() {
-        // remove any previous graphics
-        locationLayer.removeAll();
-    }
 
 /*
     @Override
@@ -253,6 +260,8 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
         //Point p = (Point) GeometryEngine.project(result.getGeometry(), this.wgs84, this.sistCoordenadas);
 
         Graphic g = locationLayer.createFeatureWithTemplate(template, resultLocation.getGeometry());
+
+
 
         locationLayer.applyEdits(new Graphic[] {g}, null, null, new CallbackListener<FeatureEditResult[][]>() {
             public void onError(Throwable e) {

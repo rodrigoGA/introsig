@@ -15,7 +15,6 @@
         initExtent="-1.3296373526814876E7 3930962.41823043 -1.2807176545789773E7 4201243.7502468005"
         mapoptions.MapType="Topo"
         mapoptions.ZoomLevel="16"
-        mapoptions.center="34.056215, -117.195668"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
