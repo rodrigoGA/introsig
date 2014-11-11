@@ -1,0 +1,215 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffe2e2e2"
+    tools:context=".MyActivity">
+
+    <!-- MapView -->
+    <com.esri.android.map.MapView
+        android:id="@+id/map"
+        initExtent="-1.3296373526814876E7 3930962.41823043 -1.2807176545789773E7 4201243.7502468005"
+        mapoptions.MapType="Topo"
+        mapoptions.ZoomLevel="16"
+        mapoptions.center="34.056215, -117.195668"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/bg_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:padding="2dp"
+            card_view:cardCornerRadius="2dp">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="false"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toLeftOf="@+id/layoutadd"
+                    android:background="@null"
+                    android:hint="Buscar" />
+
+                <LinearLayout
+                    android:id="@+id/layoutadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/button"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_weight="0.24"
+                        android:background="@null"
+                        android:src="@drawable/ic_action_content_add"
+                        android:scaleType="centerCrop"
+                        android:padding="11dp" />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="fill_parent"
+                        android:background="#ff838383"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginBottom="11dp" />
+
+
+                    <ImageButton
+                        android:id="@+id/deleteall"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_weight="0.24"
+                        android:background="@null"
+                        android:src="@drawable/ic_action_maps_layers_clear"
+                        android:scaleType="centerCrop"
+                        android:padding="11dp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/bg_options_GPS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            card_view:cardCornerRadius="2dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/aceleracionBar"
+                    android:max="20" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true">
+
+
+            <FrameLayout
+                android:id="@+id/cargando"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:visibility="gone">
+
+                <com.melnykov.fab.FloatingActionButton
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    fab:fab_colorNormal="#ecffffff"
+                    fab:fab_colorPressed="#ecececec"
+                    fab:fab_colorRipple="#ffffffff" />
+
+                <fr.castorflex.android.circularprogressbar.CircularProgressBar
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:indeterminate="true"
+                    app:cpb_max_sweep_angle="300"
+                    app:cpb_min_sweep_angle="10"
+                    app:cpb_rotation_speed="1.0"
+                    app:cpb_stroke_width="4dp"
+                    app:cpb_sweep_speed="1.0" />
+            </FrameLayout>
+
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/rutear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_action_av_play_arrow"
+                fab:fab_colorNormal="#ecffffff"
+                fab:fab_colorPressed="#ecececec"
+                fab:fab_colorRipple="#ffffffff" />
+
+
+            <RelativeLayout
+                android:id="@+id/informacionruta"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#e6ffffff"
+                android:visibility="gone">
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#be838383" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/poblacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Poblacion: ...." />
+
+                    <TextView
+                        android:id="@+id/velocidad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Velocidad: ...."
+                        android:paddingTop="4dp"/>
+
+                    </LinearLayout>
+
+
+
+                <ImageButton
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:id="@+id/gps"
+                    android:src="@drawable/ic_gps_active"
+                    android:scaleType="centerCrop"
+                    android:background="@null"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="16dp" />
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>
