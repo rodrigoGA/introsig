@@ -66,6 +66,7 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
     @InjectView(R.id.gps) ImageButton gps;
     @InjectView(R.id.bg_options_GPS) View bg_bar_gps;
     @InjectView(R.id.aceleracionBar)  SeekBar selector_aceleracion;
+    @InjectView(R.id.tambuffer)  SeekBar selector_buffer;
 
 
     Locator locator;
@@ -132,6 +133,25 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
                     aceleracion =1;
             }
         });
+
+
+        selector_buffer.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChanged = 500;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                progressChanged = progress;
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                tamBuffer= progressChanged *10;
+            }
+        });
+
+
 
 
     }
