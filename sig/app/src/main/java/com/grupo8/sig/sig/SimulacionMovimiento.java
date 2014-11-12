@@ -63,6 +63,9 @@ public class SimulacionMovimiento extends Thread {
     }
 
 
+    public void setFin(boolean fin){
+        this.fin=fin;
+    }
 
 
     Graphic graphicS;
@@ -120,7 +123,7 @@ public class SimulacionMovimiento extends Thread {
             actividad.runOnUiThread(new Runnable() {
                 public void run() {
 
-                    if (graphicS != null){
+                    if (graphicS != null && !fin){
                         actividad.movimientoAuto.removeAll();
                         actividad.movimientoAuto.addGraphic(graphicS);
                         actividad.actualizarVelocidad((int)velocidad);

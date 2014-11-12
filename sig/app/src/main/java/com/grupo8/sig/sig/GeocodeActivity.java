@@ -1,9 +1,9 @@
 package com.grupo8.sig.sig;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -31,10 +31,8 @@ import com.esri.core.symbol.TextSymbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -80,7 +78,7 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
     final static SpatialReference sistCoordenadas = SpatialReference.create(102100);
     final static SpatialReference wgs84 = SpatialReference.create(4326);
 
-    SimulacionMovimiento simulador;
+    SimulacionMovimiento simulador=null;
 
 
     int tamBuffer=500;
@@ -93,10 +91,8 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
 
         ///se a;ade el mapa base
         mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"));
-        //mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_1990-2000_Population_Change/MapServer/3"));
 
-       // mMapView.addLayer(m);
-        //locationLayer = new GraphicsLayer();
+
         locationLayer=new ArcGISFeatureLayer("http://sampleserver5.arcgisonline.com/arcgis/rest/services/LocalGovernment/Events/FeatureServer/0", ArcGISFeatureLayer.MODE.SELECTION);
         movimientoAuto =  new GraphicsLayer();
         routeLayer = new GraphicsLayer();
@@ -192,6 +188,9 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
 
 
 
+
+
+
     //se inicia el simulador del recorrido
     public void iniciarSimulacion(){
         actionRutear.setVisibility(View.GONE);
@@ -213,10 +212,37 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
 
 
 
-
     @OnClick(R.id.deleteall)
-    public void eliminarRuta(){
-        new TaskEliminarPuntosCargados(this).execute();
+    public void eliminarPuntosGuardados(){
+        this.incrementIdToSave();
+        listaDePuntos = new LinkedList<Geometry>();
+
+        locationLayer.removeAll();
+        countiesLayer.removeAll();
+        routeLayer.removeAll();
+        bufferLayer.removeAll();
+        movimientoAuto.removeAll();
+    }
+
+
+
+
+    @OnClick(R.id.detenersimulacion)
+    public void detenerSimulacion(){
+        if (simulador!= null) simulador.setFin(true);
+        simulador=null;
+
+        informacionRuta.setVisibility(View.GONE);
+        cargando.setVisibility(View.GONE);
+        bgOpciones.setVisibility(View.VISIBLE);
+        bg_bar_gps.setVisibility(View.GONE);
+        actionRutear.setVisibility(View.VISIBLE);
+        mMapView.setOnSingleTapListener(this);
+
+        countiesLayer.removeAll();
+        routeLayer.removeAll();
+        bufferLayer.removeAll();
+        movimientoAuto.removeAll();;
     }
 
 
@@ -272,7 +298,7 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
 
         //se guarda el punto
         FeatureTemplate template = locationLayer.getTypes()[0].getTemplates()[0];
-        template.getPrototype().put("eventid", 20148);
+        template.getPrototype().put("eventid", getIdToSave());
         template.getPrototype().put("event_type", 5);
         template.getPrototype().put("description", description);
         template.getPrototype().put("eventdate", GregorianCalendar.getInstance().getTime());
@@ -348,7 +374,6 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
         return focusInCar;
     }
 
-
     public int getAceleracion(){
         return aceleracion;
     }
@@ -356,4 +381,25 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
     public int getTamBuffer(){
         return tamBuffer;
     }
+
+
+
+    public void incrementIdToSave(){
+        SharedPreferences sp = getSharedPreferences("preferencias", Activity.MODE_PRIVATE);
+        int id = sp.getInt("id", 2014800);
+        id++;
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("id",id );
+        editor.commit();
+    }
+
+    public int getIdToSave(){
+        SharedPreferences sp = getSharedPreferences("preferencias", Activity.MODE_PRIVATE);
+        return sp.getInt("id", 2014800);
+    }
+
+
+
+
+
 }

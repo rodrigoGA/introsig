@@ -51,7 +51,7 @@ public class TaskCargarPuntosGuardados  extends AsyncTask<Void, Void, Boolean> {
 
             QueryParameters mParams = new QueryParameters();
             mParams.setReturnGeometry(true);
-            mParams.setWhere("eventid=20148");
+            mParams.setWhere("eventid=" + actividad.getIdToSave());
             String mFeatureServiceURL = "http://sampleserver5.arcgisonline.com/arcgis/rest/services/LocalGovernment/Events/FeatureServer/0";
             QueryTask queryTask = new QueryTask(mFeatureServiceURL);
             resultsQuery = queryTask.execute(mParams);
