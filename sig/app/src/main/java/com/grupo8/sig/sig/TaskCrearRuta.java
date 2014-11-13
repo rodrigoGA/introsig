@@ -26,10 +26,10 @@ public class TaskCrearRuta extends AsyncTask<Void, Void, Boolean> {
     RouteTask routeTask = null;
     RouteParameters routeParams = null;
     RouteResult mResults = null;
-    GeocodeActivity actividad;
+    MainActivity actividad;
     Graphic symbolGraphicRuta;
 
-    public TaskCrearRuta(GeocodeActivity actividad){
+    public TaskCrearRuta(MainActivity actividad){
         this.actividad=actividad;
     }
 

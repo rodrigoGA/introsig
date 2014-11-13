@@ -29,10 +29,10 @@ import com.esri.core.tasks.query.QueryTask;
  */
 public class SimulacionMovimiento extends Thread {
 
-    private GeocodeActivity actividad;
+    private MainActivity actividad;
     private PuntosRuta GPSs;
 
-    public SimulacionMovimiento(GeocodeActivity actividad, PuntosRuta gpss) {
+    public SimulacionMovimiento(MainActivity actividad, PuntosRuta gpss) {
         this.actividad = actividad;
         this.GPSs = gpss;
     }
@@ -174,7 +174,7 @@ public class SimulacionMovimiento extends Thread {
         @Override
         protected Boolean  doInBackground(Void... params) {
             try {
-                Polygon bufferPosition = GeometryEngine.buffer(actual, actividad.sistCoordenadas,  actividad.getTamBuffer(), GeocodeActivity.sistCoordenadas.getUnit());
+                Polygon bufferPosition = GeometryEngine.buffer(actual, actividad.sistCoordenadas,  actividad.getTamBuffer(), MainActivity.sistCoordenadas.getUnit());
                 SimpleFillSymbol simpleFillSymbol = new SimpleFillSymbol(Color.CYAN);
                 simpleFillSymbol.setAlpha(100);
                 simpleFillSymbol.setOutline(new SimpleLineSymbol(Color.BLACK, 1));

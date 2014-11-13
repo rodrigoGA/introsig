@@ -1,36 +1,27 @@
 package com.grupo8.sig.sig;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.esri.core.geometry.Geometry;
-import com.esri.core.geometry.GeometryEngine;
-import com.esri.core.geometry.Point;
 import com.esri.core.map.CallbackListener;
 import com.esri.core.map.Feature;
 import com.esri.core.map.FeatureEditResult;
 import com.esri.core.map.FeatureResult;
-import com.esri.core.map.FeatureTemplate;
 import com.esri.core.map.Graphic;
-import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.tasks.query.QueryParameters;
 import com.esri.core.tasks.query.QueryTask;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Rodrigo on 11/11/2014.
  */
 public class TaskEliminarPuntosCargados extends AsyncTask<Void, Void, Boolean> {
-    GeocodeActivity actividad;
+    MainActivity actividad;
     FeatureResult resultsQuery;
     Graphic [] gA;
 
-    public TaskEliminarPuntosCargados(GeocodeActivity actividad){
+    public TaskEliminarPuntosCargados(MainActivity actividad){
         this.actividad=actividad;
     }
 

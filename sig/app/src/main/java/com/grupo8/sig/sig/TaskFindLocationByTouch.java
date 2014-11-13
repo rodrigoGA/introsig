@@ -14,9 +14,9 @@ import com.esri.core.tasks.geocode.LocatorReverseGeocodeResult;
  */
 public class TaskFindLocationByTouch  extends   AsyncTask<Point, Void, LocatorReverseGeocodeResult> {
 
-    GeocodeActivity actividad;
+    MainActivity actividad;
 
-    public TaskFindLocationByTouch(GeocodeActivity actividad){
+    public TaskFindLocationByTouch(MainActivity actividad){
         this.actividad=actividad;
     }
 

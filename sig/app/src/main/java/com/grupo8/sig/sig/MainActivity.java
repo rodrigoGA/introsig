@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -39,7 +40,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class GeocodeActivity extends Activity implements OnSingleTapListener{
+public class MainActivity extends Activity implements OnSingleTapListener{
 
     @InjectView(R.id.map)
     MapView mMapView;
@@ -108,6 +109,8 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
         locator =Locator.createOnlineLocator();
 
         setCreandoRuta(false);
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
 
         new TaskCargarPuntosGuardados(this).execute();
 
@@ -344,7 +347,7 @@ public class GeocodeActivity extends Activity implements OnSingleTapListener{
         final Point loc = mMapView.toMapPoint(x, y);
         try {
             if (loc != null) {
-                new TaskFindLocationByTouch(GeocodeActivity.this).execute(loc);
+                new TaskFindLocationByTouch(MainActivity.this).execute(loc);
             }
 
         } catch (Exception e) {

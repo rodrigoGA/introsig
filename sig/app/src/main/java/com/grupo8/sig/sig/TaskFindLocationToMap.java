@@ -19,9 +19,9 @@ import java.util.List;
      */
 public class TaskFindLocationToMap extends AsyncTask<LocatorFindParameters, Void, List<LocatorGeocodeResult>> {
 
-    GeocodeActivity actividad;
+    MainActivity actividad;
 
-    public TaskFindLocationToMap(GeocodeActivity actividad){
+    public TaskFindLocationToMap(MainActivity actividad){
         this.actividad=actividad;
     }
 
